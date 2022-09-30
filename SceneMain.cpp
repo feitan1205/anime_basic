@@ -1,15 +1,18 @@
 #include "DxLib.h"
 #include <cassert>
 #include "SceneMain.h"
+#include "player.h"
 
 namespace {
 
-	constexpr int kPlayerGraphicDivX = 3;
-	constexpr int kPlayerGraphicDivY = 4;
-	constexpr int kPlayerGraphicNum = kPlayerGraphicDivX * kPlayerGraphicDivY;
+	const char* const kPlayerGraphicFilename = "data/char.png";
 
-	constexpr int kPlayerGraphicSizeX = 32;
-	constexpr int kPlayerGraphicSizeY = 32;
+	constexpr int kPlayerGraphicDivX = Player::kGraphicDivX;
+	constexpr int kPlayerGraphicDivY = Player::kGraphicDivY;
+	constexpr int kPlayerGraphicNum = Player::kGraphicNum;
+
+	constexpr int kPlayerGraphicSizeX = Player::kGraphicSizeX;
+	constexpr int kPlayerGraphicSizeY = Player::kGraphicSizeY;
 
 }
 
@@ -29,9 +32,13 @@ SceneMain::~SceneMain()
 // èâä˙âª
 void SceneMain::init()
 {
-	LoadDivGraph("data/char.png", kPlayerGraphicNum, kPlayerGraphicDivX, kPlayerGraphicDivY,
+	LoadDivGraph(kPlayerGraphicFilename, kPlayerGraphicNum, kPlayerGraphicDivX, kPlayerGraphicDivY,
 		kPlayerGraphicSizeX, kPlayerGraphicSizeY,m_hPlayerGraphic);
-	m_player.setHandle(m_hPlayerGraphic[1]);
+
+	for (int i = 0; i < 12; i++) {
+		m_player.setHandle(i,m_hPlayerGraphic[i]);
+	}
+
 	m_player.init();
 }
 
